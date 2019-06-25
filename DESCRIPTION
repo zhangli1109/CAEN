@@ -1,0 +1,16 @@
+Package: ENTC
+Type: Package
+Title: Encoding the  category to select the feature genes for microRNA-seq and single-cell RNA-seq classification
+Version: 0.1.0
+Author: Zhou Yan
+Maintainer: Zhou Yan<2170207901@email.szu.edu.cn>
+Description: Encoding the category to select the feature genes for microRNA-seq and single-cell RNA-seq classification.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+biocViews: DifferentialExpression,Sequencing, SingleCell,Classification,RNASeq
+Depends: R (>= 3.6.0)
+Suggests: knitr,rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Imports: stats,PoiClaClu
