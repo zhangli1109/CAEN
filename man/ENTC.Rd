@@ -2,8 +2,8 @@
 % Please edit documentation in R/ENTC.R
 \name{ENTC}
 \alias{ENTC}
-\title{Compute the correlation coefficient of gene with category
-number to identify differentially expressed genes}
+\title{Compute the correlation coefficient of gene with category number to identify
+differentially expressed genes}
 \usage{
 ENTC(data,y,K,gene_no_list)
 }
@@ -21,14 +21,15 @@ to select}
 \value{
 list(.) A list of computed correlation coefficient and the first some
 differentially expressed genes , "r"represents correlation coefficient
-between gene and category number, "np" represents the top differential
-feature label.
+ between gene and category number, "np" represents the top differential
+ feature label.
 }
 \description{
 To Compute the correlation coefficient of gene with category
 number to identify  differentially expressed genes.
 }
 \examples{
-dat <- newCountDataSet(n=40,p=500,sdsignal=0.1,K=4,param=10,drate=0.4)
-ENTC(t(dat$x),dat$y,K=4,gene_no_list=100)
+library(SummarizedExperiment)
+data(sim_data)
+ENTC(data=assay(sim_data),y=y,K=4,gene_no_list=100)
 }

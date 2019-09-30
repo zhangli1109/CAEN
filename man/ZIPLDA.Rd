@@ -31,14 +31,14 @@ at 1, the default value.}
 
 \item{rhos}{A vector of tuning parameters that control the amount of
 soft thresholding performed. If "rhos" is provided then a number of models
-will be fit (one for each element of "rhos"), and a number of predicted
-class labels will be output (one for each element of "rhos").}
+ will be fit (one for each element of "rhos"), and a number of predicted
+ class labels will be output (one for each element of "rhos").}
 
 \item{prob0}{The probability that the read is 0}
 
 \item{type}{How should the observations be normalized within the
 Zero-inflated Poisson model, i.e. how should the size factors be estimated?
-Options are "quantile" or "deseq" (more robust) or "mle" (less robust).
+ Options are "quantile" or "deseq" (more robust) or "mle" (less robust).
 In greater detail: "quantile" is quantile normalization approach of
 Bullard et al 2010 BMC Bioinformatics,"deseq" is median of the ratio of
 an observation to a pseudoreference obtained by taking the geometric mean,
@@ -48,7 +48,7 @@ sample; this is the maximum likelihood estimate under a simple Zero-inflated
 Poisson model.}
 
 \item{prior}{vector of length equal to the number of classes, representing
-prior probabilities for each class.If NULL then uniform priors are used
+ prior probabilities for each class.If NULL then uniform priors are used
 (i.e. each class is equally likely)}
 
 \item{transform}{should data matrices x and xte first be power transformed

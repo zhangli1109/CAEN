@@ -2,8 +2,7 @@
 % Please edit documentation in R/ZIPDA.cv.R
 \name{ZIPDA.cv}
 \alias{ZIPDA.cv}
-\title{Function to do cross-validation for zero-inflated Poisson
-classification.}
+\title{Function to do cross-validation for zero-inflated Poisson classification.}
 \usage{
 ZIPDA.cv(x, y, rhos = NULL, beta = 1, nfolds = 5, prob0=NULL,
 type=c("mle","deseq","quantile"),folds = NULL, transform=TRUE, alpha=NULL,

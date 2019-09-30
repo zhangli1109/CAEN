@@ -26,12 +26,11 @@ data set. If NULL, then testing will be performed on the training set.}
 
 \item{prior}{vector of length equal to the number of classes, representing
 prior probabilities for each class.If NULL then uniform priors are used
-(i.e. each class is equally likely)
-@return p the probability that the read is 0 in a
-Zero-inflated Poisson model}
+(i.e. each class is equally likely)}
 }
 \value{
-p the probability that the read is 0 in a Zero-inflated Poisson model
+p the probability that the read is 0 in a
+ Zero-inflated Poisson model
 }
 \description{
 Estimate the probability that the read is 0 in

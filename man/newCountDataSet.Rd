@@ -45,5 +45,6 @@ as well as outcome vectors y and yte of length n indicating the class
 labels of the training and test observations.
 }
 \examples{
-dat <- newCountDataSet(n=20,p=100,K=4,param=10,sdsignal=2,drate=0.4)
+library(SummarizedExperiment)
+sim_data<-newCountDataSet(n=20,p=100,K=4,param=10,sdsignal=2,drate=0.4)
 }
