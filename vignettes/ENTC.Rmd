@@ -43,6 +43,7 @@ BiocManager::install("ENTC")
 Then, the ENTC package is ready to load.
 ```{r}
 library(ENTC)
+library(SummarizedExperiment)
 ```
 
 # Data format
@@ -62,7 +63,7 @@ by *newCountDataSet()* according to the previous steps.
 
 ```{r}
 data(realData)
-head(realData)
+realData
 ```
 
 **realData** includes 44 columns and 20182 rows.That is,there are 44 
@@ -70,42 +71,42 @@ samples and 20182 genes in this dataset.
 
 ```{r}
 data(sim_data)
-head(sim_data)
+sim_data
 ```
 
-**sim_data** includes 100 columns and 474 rows.
+**sim_data** includes 100 columns and 481 rows.
 
 # Calculate the spearman correlation coefficient for data
 For the category number, we need to consider not only the difference 
-between class butalso the Intra-category difference. Therefore, we 
+between class but also the Intra-category difference. Therefore, we 
 propose ENTC method, by encoding the category number within class, 
 it get the optimal category number and select the most important genes 
 used for classification.
-
 ```{r}
 data(sim_data)
-myscore<-ENTC(data=t(sim_data$x),y=sim_data$y,K=4,gene_no_list=100)
+myscore<-ENTC(assay(sim_data),y=y,K=4,gene_no_list=100)
 myscore$np
 ```
+
 
 # Calculate classification error rate using genes selected with ENTC method
 Getting the important gene, we Calculate classification error rate 
 using genes selected. The step is as follows:
 ```{r}
 data(sim_data)
-prob<-estimatep(sim_data$x,sim_data$y,xte=sim_data$x,beta=1,
+prob<-estimatep(assay(sim_data),y,xte=assay(sim_data),beta=1,
                     type=c("mle","deseq","quantile"), prior=NULL)
-prob0<-estimatep(sim_data$x,sim_data$y,sim_data$xte,beta=1,
+prob0<-estimatep(assay(sim_data),y,assay(test_data),beta=1,
                     type=c("mle","deseq","quantile"), prior=NULL)
 probb<-t(prob)
 probb0<-t(prob0)
-train<-t(sim_data$x)
-test<-t(sim_data$xte)
+train<-assay(sim_data)
+test<-assay(test_data)
 ddd<-myscore$np
 datx<-t(train[ddd,])
 datxte<-t(test[ddd,])
-zipldacv.out <- ZIPDA.cv(datx,sim_data$y,prob0=probb)
-ZIPLDA.out <- ZIPLDA(datx,sim_data$y,datxte,transform=FALSE,prob0=probb0,
+zipldacv.out <- ZIPDA.cv(datx,y,prob0=probb)
+ZIPLDA.out <- ZIPLDA(datx,y,datxte,transform=FALSE,prob0=probb0,
                 rho=zipldacv.out$bestrho)
 class<-ZIPLDA.out$ytehat
 ```
