@@ -1,7 +1,7 @@
 Package: ENTC
 Type: Package
 Title: Encoding the  category to select the feature genes for  RNA-seq classification
-Version: 0.99.2
+Version: 0.99.3
 Author: Zhou Yan
 Maintainer: Zhou Yan<2170207901@email.szu.edu.cn>
 Description: Encoding the category to select the feature genes for RNA-seq classification.
@@ -13,4 +13,4 @@ Depends: R (>= 3.6.0)
 Suggests: knitr,rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
-Imports: stats,PoiClaClu
+Imports: stats,PoiClaClu,summarizedexperiment
