@@ -4,7 +4,7 @@ importFrom("stats", "as.dist", "median", "quantile", "rexp", "rnbinom",
 importFrom("PoiClaClu", "FindBestTransform", "NullModel", "NullModelTest")
 importFrom("SummarizedExperiment","assay")
 importFrom("stats", "binomial", "glm")
-export(ENTC)
+export(CAEN)
 export(ZIPDA.cv)
 export(ZIPLDA)
 export(estimatep)
