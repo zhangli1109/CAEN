@@ -38,9 +38,9 @@ To install the CAEN package into your R environment, start R and
 enter:
 ```{r, eval=FALSE}
 install.packages("BiocManager")
-BiocManager::install("ENTC")
+BiocManager::install("CAEN")
 ```
-Then, the ENTC package is ready to load.
+Then, the CAEN package is ready to load.
 ```{r}
 library(ENTC)
 library(SummarizedExperiment)
@@ -79,17 +79,17 @@ sim_data
 # Calculate the spearman correlation coefficient for data
 For the category number, we need to consider not only the difference 
 between class but also the Intra-category difference. Therefore, we 
-propose ENTC method, by encoding the category number within class, 
+propose CAEN method, by encoding the category number within class, 
 it get the optimal category number and select the most important genes 
 used for classification.
 ```{r}
 data(sim_data)
-myscore<-ENTC(assay(sim_data),y=y,K=4,gene_no_list=100)
+myscore<-CAEN(assay(sim_data),y=y,K=4,gene_no_list=100)
 myscore$np
 ```
 
 
-# Calculate classification error rate using genes selected with ENTC method
+# Calculate classification error rate using genes selected with CAEN method
 Getting the important gene, we Calculate classification error rate 
 using genes selected. The step is as follows:
 ```{r}
