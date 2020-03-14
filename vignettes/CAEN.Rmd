@@ -1,11 +1,11 @@
 ---
-title: "ENTC Tutorial"
+title: "CAEN Tutorial"
 author: "Yan Zhou"
-package: ENTC
+package: CAEN
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 vignette: >
-    %\VignetteIndexEntry{ENTC Tutorial}
+    %\VignetteIndexEntry{CAEN Tutorial}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -16,10 +16,10 @@ This package provides a feature selection method for single-cell RNA-seq
 data. It encodes the category number and calculate the spearman 
 correlation coefficient. 
 
-The encoding the category number (ENTC) method is developed for selecting 
+The encoding the category number (CAEN) method is developed for selecting 
 feature genes, which is differentially expressed between classes. 
-We have implemented the ENTC method via a set of R functions. 
-We make a R package named ENTC, and give a tutorial for the package. 
+We have implemented the CAEN method via a set of R functions. 
+We make a R package named CAEN, and give a tutorial for the package. 
 The method consist three steps.
 
 Step 1: Data Pre-processing;  
@@ -29,12 +29,12 @@ correlation coefficient between the gene and category number.
 
 Step 3: Calculate the classification error using the genes selected
 
-We employ a simulation dataset to illustrate the usage of the ENTC package.
+We employ a simulation dataset to illustrate the usage of the CAEN package.
 The programs can run under the Linux system and windows 10 system. The
 R versions should larger than 3.6.0.
 
 # Preparations
-To install the ENTC package into your R environment, start R and
+To install the CAEN package into your R environment, start R and
 enter:
 ```{r, eval=FALSE}
 install.packages("BiocManager")
