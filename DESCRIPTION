@@ -1,6 +1,6 @@
-Package: ENTC
+Package: CAEN
 Type: Package
-Title: Encoding the  category to select the feature genes for  RNA-seq classification
+Title: Category encoding  method for selecting feature genes for the classification of single-cell RNA-seq
 Version: 0.99.4
 Author: Zhou Yan
 Maintainer: Zhou Yan<2170207901@email.szu.edu.cn>
