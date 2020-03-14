@@ -2,7 +2,7 @@
 #' differentially expressed genes
 #' @description To Compute the correlation coefficient of gene with category
 #' number to identify  differentially expressed genes.
-#' @usage ENTC(data,y,K,gene_no_list)
+#' @usage CAEN(data,y,K,gene_no_list)
 #' @param data Matrix or data.frame containing read counts and the row denotes
 #' the gene
 #' @param y the category for each sample
@@ -16,11 +16,11 @@
 #' @examples
 #' library(SummarizedExperiment)
 #' data(sim_data)
-#' ENTC(data=assay(sim_data),y=y,K=4,gene_no_list=100)
+#' CAEN(data=assay(sim_data),y=y,K=4,gene_no_list=100)
 #' @export
 #' @import SummarizedExperiment
 
-ENTC <- function (data,y,K,gene_no_list)
+CAEN <- function (data,y,K,gene_no_list)
 {
 
 
