@@ -40,8 +40,8 @@
 #' @param prior Vector of length equal to the number of classes,
 #' representing prior probabilities for each class. If NULL then
 #' uniform priors are used (i.e.each class is equally likely).
-#' @param transform Should data matrices x and xte first be power transformed so
-#' that it more  closely fits the zero-inflated Poisson model? TRUE or FALSE.
+#' @param transform Should data matrices x and xte first be power transformed 
+#' so that it more  closely fits the zero-inflated Poisson model? TRUE or FALSE.
 #' Power transformation is especially  useful if the data are overdispersed
 #' relative to the zero-inflated Poisson model.
 #' @param alpha If transform=TRUE, this determines the power to which the data
@@ -62,51 +62,61 @@
 #' of folds)-by-(length of rhos)."folds" represents Cross-validation folds
 #' used. "alpha" represents Power transformation used (if transform=TRUE).
 #' @examples
-#'dat <- newCountDataSet(n=50,p=500,sdsignal=0.1,K=4,param=10,drate=0.4)
-#'cv.out <- ZIPDA.cv(dat$x,dat$y)
+#' library(SummarizedExperiment)
+#' dat <- newCountDataSet(n=40,p=500, K=4, param=10, sdsignal=0.1,drate=0.4)
+#' x <- t(assay(dat$sim_train_data))
+#' y <- as.numeric(colnames(dat$sim_train_data))
+#' xte <- t(assay(dat$sim_test_data))
+#' prob<-estimatep(x=x, y=y, xte=x, beta=1, type="mle", prior=NULL)
+#' prob0<-estimatep(x=x, y=y, xte=xte, beta=1,type="mle", prior=NULL)
+#' cv.out <- ZIPDA.cv(x=x, y=y, prob0=t(prob))
+#' out <- ZIPLDA(x=x, y=y, xte=xte, rho=cv.out$bestrho, prob0=t(prob0))
 #' @export
 
+
 ZIPDA.cv <-
-    function(x,y,rhos=NULL,beta=1,nfolds=5,prob0=NULL,
-        type=c("mle","deseq","quantile"),folds=NULL,transform=TRUE,
-        alpha=NULL, prior=NULL){
-    type <- match.arg(type)
-    if(!transform && !is.null(alpha)) stop("You have asked for NO
+    function(x,y,rhos = NULL, beta = 1, nfolds = 5, prob0 = NULL,
+             type = c("mle","deseq","quantile"), folds = NULL, transform = TRUE,
+             alpha = NULL, prior = NULL){
+        type <- match.arg(type)
+        if (!transform && !is.null(alpha)) stop("You have asked for NO
                             transformation but have entered alpha.")
-    if(transform && is.null(alpha)) alpha <- FindBestTransform(x)
-    if(transform){
-        if(alpha<=0 || alpha>1) stop("alpha must be between 0 and 1")
-        x <- x^alpha
+        if (transform && is.null(alpha)) 
+            alpha <- PoiClaClu::FindBestTransform(x)
+        if (transform) {
+            if (alpha <= 0 || alpha > 1) stop("alpha must be between 0 and 1")
+            x <- x^alpha
+        }
+        if (is.null(rhos)) {
+            ns <- PoiClaClu::NullModel(x,type = type)$n
+            uniq <- sort(unique(y))
+            maxrho <- rep(NA, length(uniq))
+            for (k in seq_len(length(uniq))) {
+                a <- colSums(x[y == uniq[k],]) + beta
+                b <- colSums(ns[y == uniq[k],]) + beta
+                maxrho[k] <- max(abs(a/b - 1)*sqrt(b),na.rm = TRUE)
+            }
+            rhos <- seq(0, max(maxrho,na.rm = TRUE)*(2/3), len = 30)
+        }
+        if (is.null(folds)) folds <- balanced.folds(y,nfolds = nfolds)
+        nfolds <- length(folds)
+        errs <- nnonzero <- matrix(NA, nrow = nfolds, ncol = length(rhos))
+        for (i in seq_len(nfolds)) {
+            cat(i, fill = FALSE)
+            tr <- -folds[[i]]
+            te <- folds[[i]]
+            out <- ZIPLDA(x[tr,], y[tr], x[te,], rhos = rhos, beta = beta,
+                          prob0 = prob0, type = "mle", prior = prior, 
+                          transform = FALSE)
+            for (j in seq_len(length(rhos))) {
+                errs[i,j] <- sum(out[[j]]$ytehat != y[te])
+                nnonzero[i,j] <- sum(colSums(out[[j]]$ds != 1) != 0)
+            }
+        }
+        cat(fill = TRUE)
+        save <- list(errs = errs, bestrho = rhos
+                     [max(which(colMeans(errs) == min(colMeans(errs))))],
+                     rhos = rhos, nnonzero = nnonzero, folds = folds,
+                     alpha = alpha, type = type)
+        return(save)
     }
-    if(is.null(rhos)){
-        ns <- NullModel(x,type=type)$n
-        uniq <- sort(unique(y))
-        maxrho <- rep(NA, length(uniq))
-        for(k in seq(from = 1, to = length(uniq))){
-            a <- colSums(x[y==uniq[k],])+beta
-            b <- colSums(ns[y==uniq[k],])+beta
-            maxrho[k] <- max(abs(a/b-1)*sqrt(b),na.rm=TRUE)
-    }
-        rhos <- seq(0, max(maxrho,na.rm=TRUE)*(2/3), len=30)
-    }
-    if(is.null(folds)) folds <- balanced.folds(y,nfolds=nfolds)
-    nfolds <- length(folds)
-    errs <- nnonzero <- matrix(NA, nrow=nfolds, ncol=length(rhos))
-    for(i in seq(from = 1, to = nfolds)){
-        cat(i,fill=FALSE)
-        tr <- -folds[[i]]
-        te <- folds[[i]]
-        out <- ZIPLDA(x[tr,],y[tr],x[te,],rhos=rhos,beta=beta,prob0=prob0,
-                type="mle",prior=prior, transform=FALSE)
-    for(j in seq(from = 1, to = length(rhos))){
-        errs[i,j] <- sum(out[[j]]$ytehat!=y[te])
-        nnonzero[i,j] <- sum(colSums(out[[j]]$ds!=1)!=0)
-    }
-    }
-    cat(fill=TRUE)
-    save <- list(errs=errs, bestrho=rhos
-                [max(which(colMeans(errs)==min(colMeans(errs))))],
-                rhos=rhos, nnonzero=nnonzero,folds=folds,
-                alpha=alpha,type=type)
-    return(save)
-}
