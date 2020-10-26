@@ -49,8 +49,8 @@ r(to perform r-fold cross-validation). The rth element of the list
 should be vector containing the indices of the test observations in the
 rth fold.}
 
-\item{transform}{Should data matrices x and xte first be power transformed so
-that it more  closely fits the zero-inflated Poisson model? TRUE or FALSE.
+\item{transform}{Should data matrices x and xte first be power transformed 
+so that it more  closely fits the zero-inflated Poisson model? TRUE or FALSE.
 Power transformation is especially  useful if the data are overdispersed
 relative to the zero-inflated Poisson model.}
 
@@ -84,6 +84,13 @@ function selects the proper value of the tuning parameter that controls
 the level of soft-thresholding.
 }
 \examples{
-dat <- newCountDataSet(n=50,p=500,sdsignal=0.1,K=4,param=10,drate=0.4)
-cv.out <- ZIPDA.cv(dat$x,dat$y)
+library(SummarizedExperiment)
+dat <- newCountDataSet(n=40,p=500, K=4, param=10, sdsignal=0.1,drate=0.4)
+x <- t(assay(dat$sim_train_data))
+y <- as.numeric(colnames(dat$sim_train_data))
+xte <- t(assay(dat$sim_test_data))
+prob<-estimatep(x=x, y=y, xte=x, beta=1, type="mle", prior=NULL)
+prob0<-estimatep(x=x, y=y, xte=xte, beta=1,type="mle", prior=NULL)
+cv.out <- ZIPDA.cv(x=x, y=y, prob0=t(prob))
+out <- ZIPLDA(x=x, y=y, xte=xte, rho=cv.out$bestrho, prob0=t(prob0))
 }
