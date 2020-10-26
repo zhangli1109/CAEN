@@ -12,9 +12,9 @@ newCountDataSet(n, p, K, param, sdsignal,drate)
 \item{p}{Number of features desired. Note that drate of the features
 will differ between classes, though some of those differences may be small.}
 
-\item{K}{Number of classes desired. Note that the function requires that n be
-at least equal to 4K.i.e. there must be at least 4 observations per class on
-average.}
+\item{K}{Number of classes desired. Note that the function requires that n 
+be at least equal to 4K.i.e. there must be at least 4 observations per class 
+on average.}
 
 \item{param}{The dispersion parameter for the negative binomial distribution.
 The negative binomial distribution is parameterized using "mu" and "size" in
@@ -23,19 +23,20 @@ Var(Y) = mu+mu^2/param.So when param is very large this is essentially a
 Poisson distribution, and when param is smaller then there is a lot of
 overdispersion relative to the Poisson distribution.}
 
-\item{sdsignal}{The extent to which the classes are different. If this equals
-zero then there are no class differences and if this is large then the
+\item{sdsignal}{The extent to which the classes are different. If this 
+equals zero then there are no class differences and if this is large then the
 classes are very different.}
 
 \item{drate}{The proportion of differentially expressed genes}
 }
 \value{
-list(.) A list of output, "x" represents training data of nxq
-data matrix.
-May have q<p because features with 0 total counts are removed."y" represents
-class labels for the n observations in x."xte" represents nxq data
-matrix of test observations; the q features are those with >0 total counts
-in x. So q<=p."yte"represnets class labels for the n observation in xte.
+list(.) A list of output, 
+"sim_train_data" represents training data of q*n
+data matrix. 
+"sim_test_data" represents test data of q*n data matrix.
+The colnames of this two matrix are class labels for the n observations
+May have q<p because features with 0 total counts are removed.
+The q features are those with >0 total counts in dataset. So q <= p.
 "truesf" denotes size factors for training observations."isDE" represnts
 the differential gene label.
 }
@@ -45,6 +46,5 @@ as well as outcome vectors y and yte of length n indicating the class
 labels of the training and test observations.
 }
 \examples{
-library(SummarizedExperiment)
-sim_data<-newCountDataSet(n=20,p=100,K=4,param=10,sdsignal=2,drate=0.4)
+dat <- newCountDataSet(n=40,p=500, K=4, param=10, sdsignal=0.1,drate=0.4)
 }
