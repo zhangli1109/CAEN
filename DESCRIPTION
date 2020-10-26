@@ -1,16 +1,19 @@
 Package: CAEN
 Type: Package
-Title: Category encoding  method for selecting feature genes for the classification of single-cell RNA-seq
+Title: Category encoding  method for selecting feature genes for the 
+     classification of single-cell RNA-seq
 Version: 0.99.4
 Author: Zhou Yan
 Maintainer: Zhou Yan<2170207901@email.szu.edu.cn>
-Description: Encoding the category to select the feature genes for RNA-seq classification.
+Description: Encoding the category to select the feature genes for RNA-seq 
+     classification.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-biocViews: DifferentialExpression,Sequencing,Classification,RNASeq
-Depends: R (>= 3.6.0)
+biocViews: DifferentialExpression,Sequencing,Classification,
+     RNASeq,ATACSeq, SingleCell
+Depends: R (>= 4.0)
 Suggests: knitr,rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
-Imports: stats,PoiClaClu,summarizedexperiment
+RoxygenNote: 7.1.1
+Imports: stats,PoiClaClu,SummarizedExperiment
