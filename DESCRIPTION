@@ -2,7 +2,7 @@ Package: CAEN
 Type: Package
 Title: Category encoding  method for selecting feature genes for the 
      classification of single-cell RNA-seq
-Version: 0.99.2
+Version: 0.99.1
 Authors@R: person("Zhou Yan", email = "2160090406@email.szu.edu.cn", 
      role = c("aut", "cre"))
 Description: Encoding the category to select the feature genes for RNA-seq 
