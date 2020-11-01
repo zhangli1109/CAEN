@@ -31,7 +31,7 @@ Step 3: Calculate the classification error using the genes selected.
 
 We employ a simulation dataset to illustrate the usage of the CAEN package.
 The programs can run under the Linux system and windows 10 system. The
-R versions should larger than 3.6.0.
+R versions should larger than 4.0.
 
 # Preparations
 To install the CAEN package into your R environment, start R and
