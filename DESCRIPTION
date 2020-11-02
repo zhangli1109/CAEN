@@ -18,7 +18,7 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 biocViews: DifferentialExpression,Sequencing,Classification,
-     RNASeq,ATACSeq, SingleCell
+     RNASeq,ATACSeq, SingleCell,GeneExpression
 Depends: R (>= 4.0)
 Suggests: knitr,rmarkdown
 VignetteBuilder: knitr
