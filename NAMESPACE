@@ -7,4 +7,4 @@ export(estimatep)
 export(newCountDataSet)
 import(SummarizedExperiment)
 importFrom("stats", "binomial", "glm", "rexp", "rnbinom", "rnorm",
-               "runif", "sd")
+                "runif", "sd")
