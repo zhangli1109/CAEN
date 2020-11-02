@@ -19,11 +19,11 @@
 #' x <- t(assay(dat$sim_train_data))                  
 #' y <- as.numeric(colnames(dat$sim_train_data))      
 #' xte <- t(assay(dat$sim_test_data))                 
-#' prob<-estimatep(x=x,y=y,xte=x,beta=1,
+#' prob <- estimatep(x=x,y=y,xte=x,beta=1,
 #' type=c("mle","deseq","quantile"),prior=NULL)      
-#' prob0<-estimatep(x=x,y=y,xte=xte,beta=1,
+#' prob0 <- estimatep(x=x,y=y,xte=xte,beta=1,
 #' type=c("mle","deseq","quantile"),prior=NULL)   
-#' myscore<-CAEN(dataTable=assay(dat$sim_train_data),
+#' myscore <- CAEN(dataTable=assay(dat$sim_train_data),
 #' y=as.numeric(colnames(dat$sim_train_data)),
 #' K=4,gene_no_list=100)
 #' @export

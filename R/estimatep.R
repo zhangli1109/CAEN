@@ -25,7 +25,7 @@
 #' x <- t(assay(dat$sim_train_data))
 #' y <- as.numeric(colnames(dat$sim_train_data))
 #' xte <- t(assay(dat$sim_test_data))
-#' prob<-estimatep(x=x, y=y, xte=x, beta=1, type="mle", prior=NULL)
+#' prob <- estimatep(x=x, y=y, xte=x, beta=1, type="mle", prior=NULL)
 #' @export
 
 estimatep <- function(x, y, xte=NULL, beta=1,
